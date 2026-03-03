@@ -1,0 +1,1 @@
+//Aqui se va a poner el boton que inicia el timer, deberia este mismo boton funcionar para parar y reanudar el timer.

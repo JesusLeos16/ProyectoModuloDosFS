@@ -1,0 +1,1 @@
+//Un cuadrito que le va a mostrar al usuario la ronda en la que va y cambia en cuanto comiezna la sigueinte ronda

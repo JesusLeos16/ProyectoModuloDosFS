@@ -1,0 +1,1 @@
+//Las rondas actuales, cuanto tiempo queda y las rondas que quedan y algun mensaje tipo footer de todad la vida.
