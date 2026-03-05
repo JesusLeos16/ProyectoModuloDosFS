@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 //Funcion temporal de como deberia funcionar este timer, es para hacer pruebas tambien, mas adelante ya vamos a mandar
 //parametros, amonos por partes.
 export default function TimerDeportivo() {
-
   const [rondasTotales, setRondasTotales] = useState(3);
   const [tiempoRonda, setTiempoRonda] = useState(60);
 
@@ -13,7 +12,17 @@ export default function TimerDeportivo() {
 
   const [fase, setFase] = useState("configurando");
 
+  const iniciarEntrenamiento = () => {
+    setFase("Preparacion");
+    setTiempo(5);
+    setRondaActual(1);
+    setCorriendo(true);
+  };
 
+  const cancelarEntrenamiento = () => {
+    setCorriendo(false);
+    setFase("configuracion");
+  };
 
   return <></>;
 }
