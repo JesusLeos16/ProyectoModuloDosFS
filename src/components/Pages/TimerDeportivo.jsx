@@ -37,7 +37,7 @@ export default function TimerDeportivo() {
 
   return (
     <>
-      <div className={`${fase} flex justify-center items-center h-screen flex-col`}>
+      <div className={`$${fase} flex justify-center items-center h-screen flex-col ${corriendo ? "bg-amber-700" : "bg-blue-600"}`}>
         <h1 className="text-9xl font-bold">{tiempo}</h1>
 
         <div className="flex gap-3 m-4 ">
