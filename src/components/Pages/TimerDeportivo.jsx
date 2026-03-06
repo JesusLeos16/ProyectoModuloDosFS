@@ -1,6 +1,7 @@
 //todo el merequetengue
 import { useState, useEffect } from "react";
 import PanelControl from "../molecules/PanelControl";
+import BotonInicio from "../atoms/BotonInicio";
 export default function TimerDeportivo() {
   const [rondasTotales, setRondasTotales] = useState(3);
   const [tiempoRonda, setTiempoRonda] = useState(60);
@@ -31,6 +32,12 @@ export default function TimerDeportivo() {
     setRondaActual(1);
   };
 
+  const pausarEntrenamiento = () => {
+    setCorriendo(false);
+  };
+  const reanudarEntrenamiento = () => {
+    setCorriendo(true);
+  };
 
   useEffect(() => {
     let intervalo;
@@ -54,7 +61,7 @@ export default function TimerDeportivo() {
       }
     }
     return () => clearInterval(intervalo);
-  },[corriendo,tiempo,fase,rondaActual,rondasTotales,tiempoRonda]);
+  }, [corriendo, tiempo, fase, rondaActual, rondasTotales, tiempoRonda]);
 
   if (fase == "configurando") {
     return (
@@ -89,8 +96,12 @@ export default function TimerDeportivo() {
       >
         <h1>{tiempo}</h1>
         <h2>{fase}</h2>
-        <h2>{rondaActual}</h2>
+        <h2>Ronda: {rondaActual}</h2>
         <button onClick={cancelarEntrenamiento}>Cancelar</button>
+        <BotonInicio
+          texto={corriendo ? "PAUSAR" : "CONTINUAR"}
+          onClick={corriendo ? pausarEntrenamiento : reanudarEntrenamiento}
+        />
       </div>
     </>
   );

@@ -1,1 +1,7 @@
-//Aqui se va a poner el boton que inicia el timer, deberia este mismo boton funcionar para parar y reanudar el timer.
+export default function BotonInicio({texto, onClick}){
+    return(
+        <button
+        onClick={onClick}
+        >{texto}</button>
+    )
+}
