@@ -24,6 +24,37 @@ export default function TimerDeportivo() {
     setCorriendo(false);
     setFase("configurando");
   };
+  const iniciarEntrenamiento = () => {
+    setCorriendo(true);
+    setFase("preparacion");
+    setTiempo(5);
+    setRondaActual(1);
+  };
+
+
+  useEffect(() => {
+    let intervalo;
+    if (corriendo && tiempo > 0) {
+      intervalo = setInterval(() => {
+        setTiempo((tiempoAnterior) => tiempoAnterior - 1);
+      }, 1000);
+    } else if (corriendo && tiempo == 0) {
+      if (fase == "preparacion") {
+        setFase("entrenando");
+        setTiempo(tiempoRonda);
+      } else if (fase == "entrenando") {
+        if (rondaActual < rondasTotales) {
+          setRondaActual((ronda) => ronda + 1);
+          setFase("preparacion");
+          setTiempo(5);
+        } else {
+          setCorriendo(false);
+          setFase("configurando");
+        }
+      }
+    }
+    return () => clearInterval(intervalo);
+  },[corriendo,tiempo,fase,rondaActual,rondasTotales,tiempoRonda]);
 
   if (fase == "configurando") {
     return (
@@ -39,28 +70,28 @@ export default function TimerDeportivo() {
         />
         {/* tiempo */}
         <PanelControl
-        titulo="Tiempo"
-        valor={tiempoRonda}
-        Suma={subirTiempo}
-        Resta={bajarTiempo}
-        Tiempo={true}
+          titulo="Tiempo"
+          valor={tiempoRonda}
+          Suma={subirTiempo}
+          Resta={bajarTiempo}
+          Tiempo={true}
         />
 
-        <button>COMENZAR</button>
-
+        <button onClick={iniciarEntrenamiento}>COMENZAR</button>
       </div>
     );
   }
 
-  return(
+  return (
     <>
-    <div className={`${fase=='preparacion'? 'bg-amber-300':''} ${fase=='entrenando'?'bg-emerald-400 text-black':'' }`}>
-
-      <h1>{tiempo}</h1>
-      <h2>{fase}</h2>
-      <button>Cancelar</button>
-    </div>
-
+      <div
+        className={`${fase == "preparacion" ? "bg-amber-300" : ""} ${fase == "entrenando" ? "bg-emerald-400 text-black" : ""}`}
+      >
+        <h1>{tiempo}</h1>
+        <h2>{fase}</h2>
+        <h2>{rondaActual}</h2>
+        <button onClick={cancelarEntrenamiento}>Cancelar</button>
+      </div>
     </>
   );
 }
