@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import PanelControl from "../molecules/PanelControl";
 import BotonInicio from "../atoms/BotonInicio";
 import MensajeTexto from "../atoms/MensajeTexto";
+import { BeakerIcon,Play} from "lucide-react";
 export default function TimerDeportivo() {
   const [rondasTotales, setRondasTotales] = useState(3);
   const [tiempoRonda, setTiempoRonda] = useState(60);
@@ -87,6 +88,7 @@ export default function TimerDeportivo() {
 
   if (fase == "configurando") {
     return (
+      
       <div>
         <MensajeTexto mensaje={mensajillo()} />
         {/* rondas */}
