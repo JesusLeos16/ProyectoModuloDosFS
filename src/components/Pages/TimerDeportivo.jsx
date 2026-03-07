@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import PanelControl from "../molecules/PanelControl";
 import BotonInicio from "../atoms/BotonInicio";
 import MensajeTexto from "../atoms/MensajeTexto";
-import { BeakerIcon,Play} from "lucide-react";
+import { BeakerIcon, Play } from "lucide-react";
 export default function TimerDeportivo() {
   const [rondasTotales, setRondasTotales] = useState(3);
   const [tiempoRonda, setTiempoRonda] = useState(60);
@@ -36,15 +36,14 @@ export default function TimerDeportivo() {
 
   const pausarEntrenamiento = () => {
     setCorriendo(false);
-
   };
   const reanudarEntrenamiento = () => {
     setCorriendo(true);
   };
 
   const mensajillo = () => {
-    if(corriendo == false && fase !="configurando"){
-      return "ENTRENAMIENTO PAUSADO"
+    if (corriendo == false && fase != "configurando") {
+      return "ENTRENAMIENTO PAUSADO";
     }
 
     switch (fase) {
@@ -88,27 +87,33 @@ export default function TimerDeportivo() {
 
   if (fase == "configurando") {
     return (
-      
-      <div>
-        <MensajeTexto mensaje={mensajillo()} />
-        {/* rondas */}
-        <PanelControl
-          titulo="Rondas"
-          valor={rondasTotales}
-          Suma={subirRondas}
-          Resta={bajarRondas}
-          Tiempo={false}
-        />
-        {/* tiempo */}
-        <PanelControl
-          titulo="Tiempo"
-          valor={tiempoRonda}
-          Suma={subirTiempo}
-          Resta={bajarTiempo}
-          Tiempo={true}
-        />
+      <div className="flex flex-col items-center justify-center min-h-screen overflow-hidden bg-white">
+        <div className="flex flex-col items-center gap-6 md:scale-125 lg:scale-150 origin-center">
+          <MensajeTexto mensaje={mensajillo()} />
+          {/* rondas */}
+          <PanelControl
+            titulo="Rondas"
+            valor={rondasTotales}
+            Suma={subirRondas}
+            Resta={bajarRondas}
+            Tiempo={false}
+          />
+          {/* tiempo */}
+          <PanelControl
+            titulo="Tiempo"
+            valor={tiempoRonda}
+            Suma={subirTiempo}
+            Resta={bajarTiempo}
+            Tiempo={true}
+          />
 
-        <button onClick={iniciarEntrenamiento}>COMENZAR</button>
+          <div className="flex gap-1 font-bold bg-amber-300 shadow-md text-white p-3 text-center w-75 rounded-full active:scale-95 transition-all duration-200 hover:shadow-amber-400 ">
+            <Play className="w-5" />
+            <button onClick={iniciarEntrenamiento}>
+              COMENZAR ENTRENAMIENTO
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -119,7 +124,9 @@ export default function TimerDeportivo() {
         className={`${fase == "preparacion" ? "bg-amber-300" : ""} ${fase == "entrenando" ? "bg-emerald-400 text-black" : ""}`}
       >
         <MensajeTexto
-          mensaje={corriendo ? `${mensajillo()}` : "REANUDA EL ENTRENAMIENTO HUEVON"}
+          mensaje={
+            corriendo ? `${mensajillo()}` : "REANUDA EL ENTRENAMIENTO HUEVON"
+          }
         />
         <h1>{tiempo}</h1>
         <h2>Ronda: {rondaActual}</h2>
