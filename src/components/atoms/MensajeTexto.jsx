@@ -1,1 +1,5 @@
-//Un mensaje que se le va a poner al usuario arriba del tiempo con mensaje como "PREPARATE" O "ENTRENANDO"
+export default function MensajeTexto({mensaje}){
+    return(
+        <p>{mensaje}</p>
+    )
+}

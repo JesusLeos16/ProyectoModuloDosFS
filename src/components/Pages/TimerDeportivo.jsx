@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import PanelControl from "../molecules/PanelControl";
 import BotonInicio from "../atoms/BotonInicio";
+import MensajeTexto from "../atoms/MensajeTexto";
 export default function TimerDeportivo() {
   const [rondasTotales, setRondasTotales] = useState(3);
   const [tiempoRonda, setTiempoRonda] = useState(60);
@@ -34,9 +35,30 @@ export default function TimerDeportivo() {
 
   const pausarEntrenamiento = () => {
     setCorriendo(false);
+
   };
   const reanudarEntrenamiento = () => {
     setCorriendo(true);
+  };
+
+  const mensajillo = () => {
+    if(corriendo == false && fase !="configurando"){
+      return "ENTRENAMIENTO PAUSADO"
+    }
+
+    switch (fase) {
+      case "configurando":
+        return "CONFIGURA TU RUTINA!!";
+        break;
+      case "entrenando":
+        return "ENTRENANDO!!!";
+        break;
+      case "preparacion":
+        return "PREPARATE!!";
+        break;
+      default:
+        return "";
+    }
   };
 
   useEffect(() => {
@@ -66,7 +88,7 @@ export default function TimerDeportivo() {
   if (fase == "configurando") {
     return (
       <div>
-        <h1>CONFIGURAR RUTINA</h1>
+        <MensajeTexto mensaje={mensajillo()} />
         {/* rondas */}
         <PanelControl
           titulo="Rondas"
@@ -94,8 +116,10 @@ export default function TimerDeportivo() {
       <div
         className={`${fase == "preparacion" ? "bg-amber-300" : ""} ${fase == "entrenando" ? "bg-emerald-400 text-black" : ""}`}
       >
+        <MensajeTexto
+          mensaje={corriendo ? `${mensajillo()}` : "REANUDA EL ENTRENAMIENTO HUEVON"}
+        />
         <h1>{tiempo}</h1>
-        <h2>{fase}</h2>
         <h2>Ronda: {rondaActual}</h2>
         <button onClick={cancelarEntrenamiento}>Cancelar</button>
         <BotonInicio
