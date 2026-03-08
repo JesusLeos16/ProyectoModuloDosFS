@@ -4,7 +4,7 @@ import PanelControl from "../molecules/PanelControl";
 import BotonInicio from "../atoms/BotonInicio";
 import MensajeTexto from "../atoms/MensajeTexto";
 import FooterTimer from "../organisms/FooterTimer";
-import { BeakerIcon, Play, SquareIcon } from "lucide-react";
+import { BeakerIcon, Play, SquareIcon,XIcon } from "lucide-react";
 export default function TimerDeportivo() {
   const [rondasTotales, setRondasTotales] = useState(3);
   const [tiempoRonda, setTiempoRonda] = useState(60);
@@ -139,8 +139,8 @@ export default function TimerDeportivo() {
           Ronda {rondaActual}/{rondasTotales}
         </h2>
        <div className="flex gap-15">
-         <button className="bg-red-600 active:scale-95 text-white font-bold rounded-full transition-all duration-500 shadow-lg hover:shadow-red-500 p-3" onClick={cancelarEntrenamiento}>
-          Cancelar
+         <button className="bg-red-600 active:scale-95 p-4 text-white font-bold rounded-full transition-all duration-500 shadow-lg hover:shadow-red-500" onClick={cancelarEntrenamiento}>
+          <XIcon/>
         </button>
         <BotonInicio
           texto={corriendo ? <SquareIcon /> : <Play />}
