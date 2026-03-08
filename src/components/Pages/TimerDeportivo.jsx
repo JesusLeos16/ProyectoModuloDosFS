@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import PanelControl from "../molecules/PanelControl";
 import BotonInicio from "../atoms/BotonInicio";
 import MensajeTexto from "../atoms/MensajeTexto";
-import { BeakerIcon, Play } from "lucide-react";
+import FooterTimer from "../organisms/FooterTimer";
+import { BeakerIcon, Play, SquareIcon } from "lucide-react";
 export default function TimerDeportivo() {
   const [rondasTotales, setRondasTotales] = useState(3);
   const [tiempoRonda, setTiempoRonda] = useState(60);
@@ -87,6 +88,7 @@ export default function TimerDeportivo() {
 
   if (fase == "configurando") {
     return (
+      <>
       <div className="flex flex-col items-center justify-center min-h-screen overflow-hidden bg-white">
         <div className="flex flex-col items-center gap-6 md:scale-125 lg:scale-150 origin-center">
           <MensajeTexto mensaje={mensajillo()} />
@@ -114,28 +116,40 @@ export default function TimerDeportivo() {
             </button>
           </div>
         </div>
+        
       </div>
+      <FooterTimer/>
+      </>
     );
   }
 
   return (
     <>
+      <MensajeTexto
+        mensaje={
+          corriendo ? `${mensajillo()}` : "REANUDA EL ENTRENAMIENTO HUEVON"
+        }
+      />
       <div
-        className={`${fase == "preparacion" ? "bg-amber-300" : ""} ${fase == "entrenando" ? "bg-emerald-400 text-black" : ""}`}
+        className={`gap-10 h-screen flex justify-center items-center flex-col ${fase == "preparacion" ? "bg-amber-300" : ""} ${fase == "entrenando" ? "bg-emerald-400 text-black" : ""} 
+         `}
       >
-        <MensajeTexto
-          mensaje={
-            corriendo ? `${mensajillo()}` : "REANUDA EL ENTRENAMIENTO HUEVON"
-          }
-        />
-        <h1>{tiempo}</h1>
-        <h2>Ronda: {rondaActual}</h2>
-        <button onClick={cancelarEntrenamiento}>Cancelar</button>
+        <h1 className="text-9xl font-extrabold">{tiempo}</h1>
+        <h2 className="text-3xl">
+          Ronda {rondaActual}/{rondasTotales}
+        </h2>
+       <div className="flex gap-15">
+         <button className="bg-red-600 active:scale-95 text-white font-bold rounded-full transition-all duration-500 shadow-lg hover:shadow-red-500 p-3" onClick={cancelarEntrenamiento}>
+          Cancelar
+        </button>
         <BotonInicio
-          texto={corriendo ? "PAUSAR" : "CONTINUAR"}
+          texto={corriendo ? <SquareIcon /> : <Play />}
           onClick={corriendo ? pausarEntrenamiento : reanudarEntrenamiento}
+        
         />
+       </div>
       </div>
+      <FooterTimer/>
     </>
   );
 }
