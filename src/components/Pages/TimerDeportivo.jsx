@@ -9,10 +9,10 @@ const sonidoBip = new Audio("/bipbip.mp3");
 export default function TimerDeportivo() {
   const [rondasTotales, setRondasTotales] = useState(3);
   const [tiempoRonda, setTiempoRonda] = useState(60);
-
   const [tiempo, setTiempo] = useState(0);
   const [corriendo, setCorriendo] = useState(false);
   const [rondaActual, setRondaActual] = useState(1);
+  const [tiempoDescanso, setTiempoDescanso] = useState(30);
 
   const [fase, setFase] = useState("configurando");
 
@@ -24,6 +24,12 @@ export default function TimerDeportivo() {
   const bajarTiempo = () => {
     if (tiempoRonda > 5) setTiempoRonda(tiempoRonda - 5);
   };
+  const subirDescanso = () => {
+    setTiempoDescanso((tiempoAnterior) => tiempoAnterior + 5);
+  };
+  const bajarDescanso=()=>{
+    setTiempoDescanso((tiempoAnterior)=>tiempoAnterior-5);
+  }
 
   const cancelarEntrenamiento = () => {
     setCorriendo(false);
@@ -84,7 +90,7 @@ export default function TimerDeportivo() {
         if (rondaActual < rondasTotales) {
           setRondaActual((ronda) => ronda + 1);
           setFase("preparacion");
-          setTiempo(5);
+          setTiempo(tiempoDescanso);
         } else {
           setCorriendo(false);
           setFase("configurando");
@@ -108,6 +114,14 @@ export default function TimerDeportivo() {
               Suma={subirRondas}
               Resta={bajarRondas}
               Tiempo={false}
+            />
+            {/* descanso */}
+            <PanelControl
+            titulo="Descanso"
+            valor={tiempoDescanso}
+            Suma={subirDescanso}
+            Resta={bajarDescanso}
+            Tiempo={true}
             />
             {/* tiempo */}
             <PanelControl
