@@ -21,7 +21,7 @@ export default function TimerDeportivo() {
     if (rondasTotales > 1) {
       setRondasTotales(rondasTotales - 1);
     } else {
-      alert("Ya no puedes derementar mas las rondas");
+      alert("Ya no puedes decrementar mas las rondas");
     }
   };
   const subirTiempo = () => setTiempoRonda(tiempoRonda + 5);
@@ -29,7 +29,7 @@ export default function TimerDeportivo() {
     if (tiempoRonda > 5) {
       setTiempoRonda(tiempoRonda - 5);
     } else {
-      alert("Ya no puedes derementar mas el tiempo");
+      alert("Ya no puedes decrementar mas el tiempo");
     }
   };
   const subirDescanso = () => {
@@ -39,7 +39,7 @@ export default function TimerDeportivo() {
     if (tiempoDescanso >= 5) {
       setTiempoDescanso((tiempoAnterior) => tiempoAnterior - 5);
     } else {
-      alert("Ya no puedes derementar mas el descanso");
+      alert("Ya no puedes decrementar mas el descanso");
     }
   };
 
