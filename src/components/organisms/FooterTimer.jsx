@@ -1,6 +1,6 @@
 export default function FooterTimer(){
     return(
-        <div>
+        <div className="flex justify-center">
             HECHO POR KOKIN
         </div>
     );
