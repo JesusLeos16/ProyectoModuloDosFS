@@ -27,9 +27,12 @@ export default function TimerDeportivo() {
   const subirDescanso = () => {
     setTiempoDescanso((tiempoAnterior) => tiempoAnterior + 5);
   };
-  const bajarDescanso=()=>{
-    setTiempoDescanso((tiempoAnterior)=>tiempoAnterior-5);
-  }
+  const bajarDescanso = () => {
+    if (tiempoDescanso >= 5) {
+      setTiempoDescanso((tiempoAnterior) => tiempoAnterior - 5);
+    }
+    
+  };
 
   const cancelarEntrenamiento = () => {
     setCorriendo(false);
@@ -117,11 +120,11 @@ export default function TimerDeportivo() {
             />
             {/* descanso */}
             <PanelControl
-            titulo="Descanso"
-            valor={tiempoDescanso}
-            Suma={subirDescanso}
-            Resta={bajarDescanso}
-            Tiempo={true}
+              titulo="Descanso"
+              valor={tiempoDescanso}
+              Suma={subirDescanso}
+              Resta={bajarDescanso}
+              Tiempo={true}
             />
             {/* tiempo */}
             <PanelControl
