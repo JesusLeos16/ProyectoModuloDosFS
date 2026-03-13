@@ -5,7 +5,9 @@ import BotonInicio from "../atoms/BotonInicio";
 import MensajeTexto from "../atoms/MensajeTexto";
 import FooterTimer from "../organisms/FooterTimer";
 import { BeakerIcon, Play, SquareIcon, XIcon } from "lucide-react";
+import axios from "axios";
 const sonidoBip = new Audio("/bipbip.mp3");
+const sonidoMar = new Audio("/mariachiloco.mp3");
 export default function TimerDeportivo() {
   const [rondasTotales, setRondasTotales] = useState(3);
   const [tiempoRonda, setTiempoRonda] = useState(60);
@@ -13,6 +15,15 @@ export default function TimerDeportivo() {
   const [corriendo, setCorriendo] = useState(false);
   const [rondaActual, setRondaActual] = useState(1);
   const [tiempoDescanso, setTiempoDescanso] = useState(30);
+  const [gifFote, setgifFote] = useState(null);
+
+  const gigiFF = async () => {
+      const url = `https://api.giphy.com/v1/gifs/random?api_key=XazfhgiiodclcD27YhZqSKPZsCwJMevH&tag=celebration+dance&rating=g`;
+      const apiResp = await axios.get(url);
+      setgifFote(apiResp.data.data.images.original.url);
+      sonidoMar.currentTime = 0;
+      sonidoMar.play();
+  };
 
   const [fase, setFase] = useState("configurando");
 
@@ -106,6 +117,7 @@ export default function TimerDeportivo() {
         } else {
           setCorriendo(false);
           setFase("configurando");
+          gigiFF();
         }
       }
     }
@@ -117,7 +129,9 @@ export default function TimerDeportivo() {
     return (
       <>
         <div className="flex flex-col items-center justify-center min-h-screen overflow-hidden bg-white">
+         
           <div className="flex flex-col items-center gap-6 md:scale-125 lg:scale-150 origin-center">
+            
             <MensajeTexto mensaje={mensajillo()} />
             {/* rondas */}
             <PanelControl
@@ -152,6 +166,17 @@ export default function TimerDeportivo() {
             </div>
           </div>
         </div>
+        
+         {gifFote && (
+          <div className="mb-8 text-center">
+            <h2 className="text-gray-700 font-bold mb-8 text-5xl flex justify-center pt-5">ENTRENAMIENTO COMPLETADO!</h2>
+            <img 
+              src={gifFote} 
+              alt="Celebración" 
+              className="w-64 h-64 object-cover shadow-2xls  mx-auto"
+            />
+          </div>
+        )}
         <FooterTimer />
       </>
     );
